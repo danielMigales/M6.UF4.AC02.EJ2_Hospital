@@ -39,7 +39,7 @@ public class UIController implements Initializable {
 
     @FXML
     private MenuBar MenuBar;
-    
+
     @FXML
     private MenuItem menuCerrar;
 
@@ -145,22 +145,22 @@ public class UIController implements Initializable {
         Stage stage = null;
         File file = fileChooser.showSaveDialog(stage);
         ConexionBD conexion = new ConexionBD();
-        
+
         if (file != null) {
             FileWriter fw = null;
             BufferedWriter bw = null;
             try {
                 fw = new FileWriter(file, false);
-                bw = new BufferedWriter(fw);  
+                bw = new BufferedWriter(fw);
                 String listadoPacientes = conexion.mostrarTodosPacientes().toString();
                 bw.write(listadoPacientes);
             } catch (Exception ex) {
-               
+
             } finally {
                 try {
                     bw.close();
                 } catch (Exception ex2) {
-                   
+
                 }
             }
         }
@@ -231,9 +231,9 @@ public class UIController implements Initializable {
                 String numeroTelefono = listadoPaciente.getNumeroTelefono();
                 String fechaNacimiento = listadoPaciente.getFechaNacimiento();
                 String nivelInsulina = String.valueOf(listadoPaciente.getNivelInsulina());
-                textArea.appendText("Numero de Seguridad Social: " + numeroSeguridadSocial + "\nNombre: " + nombre + "\n1er Apellido: "
-                        + apellido1 + "\n2nd Apellido: " + apellido2 + "\nNumero de telefono: " + numeroTelefono
-                        + "\nFecha de nacimiento: " + fechaNacimiento + "\nNivel de insulina: " + nivelInsulina + "\n\n");
+
+                textArea.appendText(numeroSeguridadSocial + "\t" + nombre + "\t" + apellido1 + "\t"
+                        + apellido2 + "\t" + numeroTelefono + "\t" + fechaNacimiento + "\t" + nivelInsulina + "\n\n");
             }
         } catch (SQLException ex) {
             Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
@@ -243,6 +243,7 @@ public class UIController implements Initializable {
         textArea.setWrapText(true);
         textArea.setMaxWidth(Double.MAX_VALUE);
         textArea.setMaxHeight(Double.MAX_VALUE);
+
         GridPane.setVgrow(textArea, Priority.ALWAYS);
         GridPane.setHgrow(textArea, Priority.ALWAYS);
         GridPane expContent = new GridPane();
@@ -250,6 +251,8 @@ public class UIController implements Initializable {
         expContent.add(label, 0, 0);
         expContent.add(textArea, 0, 1);
         alert.getDialogPane().setExpandableContent(expContent);
+        alert.getDialogPane().setExpanded(true);
+        alert.setHeight(600);
         alert.showAndWait();
     }
 

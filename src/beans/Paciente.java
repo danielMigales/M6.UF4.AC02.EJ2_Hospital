@@ -3,6 +3,7 @@ package beans;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import javafx.scene.control.Alert;
 
 /**
  *
@@ -105,12 +106,26 @@ public class Paciente implements Serializable { //BEAN FUENTE
             System.out.println("SOY EL BEAN FUENTE: Sus niveles han sobrepasado los limites. Han subido mas de 10 puntos.");
             //LANZAMOS EL EVENTO AL RECEPTOR ENVIANDOLE LOS DATOS
             propertySupport.firePropertyChange("Nivel Insulina Actual", valorAnterior, this.nivelInsulina);
+
+            //Lanzara una alerta en forma de dialogo
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ALERTA DE ANALITICA");
+            alert.setHeaderText("SOY EL BEAN FUENTE E INFORMO:");
+            alert.setContentText("Su nivel de insulina ha subido mas de 10 puntos.\n\n");
+            alert.showAndWait();
         }
         if (resultadoAnalitica <= numeroC) {
             //si la analitica es menor que el nivel anterior se imprime mensaje y se lanza el evento
             System.out.println("SOY EL BEAN FUENTE: Sus niveles han sobrepasado los limites. Han bajado mas de 10 puntos.");
             //LANZAMOS EL EVENTO AL RECEPTOR ENVIANDOLE LOS DATOS
             propertySupport.firePropertyChange("Nivel Insulina Actual", valorAnterior, this.nivelInsulina);
+
+            //Lanzara una alerta en forma de dialogo
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("ALERTA DE ANALITICA");
+            alert.setHeaderText("SOY EL BEAN FUENTE E INFORMO:");
+            alert.setContentText("Su nivel de insulina ha bajado mas de 10 puntos.\n\n");
+            alert.showAndWait();
         }
 
     }

@@ -78,15 +78,14 @@ public class Analitica implements Serializable, PropertyChangeListener {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("ALERTA DE ANALITICA");
         alert.setHeaderText("SOY EL BEAN RECEPTOR E INFORMO:");
-        alert.setContentText("El nivel anterior del paciente era de " + valorAntiguo + ".\n" + "El resultado de su analitica de hoy es de "
-                + valorNuevo + ". \nSus valores han variado en " + diferencia);
-        alert.setContentText("\nSe debe programar una nueva analitica en una semana." 
-                        + "\nEfectue llamada al numero " + paciente.getNumeroTelefono()+ " para programar visita con el paciente " 
+        alert.setContentText("El nivel anterior del paciente era de " + valorAntiguo + ".\n" + "El resultado de la analitica de hoy es de "
+                + valorNuevo + ". \nSus valores han variado en " + diferencia + "\nSe debe programar una nueva analitica en una semana." 
+                        + "\nEfectue llamada al numero " + paciente.getNumeroTelefono()+ " para programar visita con el paciente." 
                 + paciente.getNombre() + "" + paciente.getApellido1() + "\n\n");
         alert.showAndWait();
 
         //AQUI HARIA ALGO PARA PROGRAMAR UNA ANALITICA NUEVA (PODRIA SER UNA TABLA VISITAS CON UNA ANALITICA PROGRAMADA)
-        //LLAMAR AL USUARIO A SU NUMERO DE TELEFONO PARA CITA
+        
     }
 
     @Override

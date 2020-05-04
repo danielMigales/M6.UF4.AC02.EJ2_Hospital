@@ -16,16 +16,16 @@
 
 <AnchorPane id="AnchorPane" prefHeight="693.0" prefWidth="932.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.UIController">
    <children>
-      <MenuBar layoutX="5.0" layoutY="14.0" prefHeight="26.0" prefWidth="920.0">
+      <MenuBar fx:id="MenuBar" layoutX="5.0" layoutY="14.0" prefHeight="26.0" prefWidth="920.0">
         <menus>
           <Menu mnemonicParsing="false" text="Archivo">
             <items>
-              <MenuItem mnemonicParsing="false" text="Cerrar" />
+              <MenuItem fx:id="menuCerrar" mnemonicParsing="false" onAction="#cerrarPrograma" text="Cerrar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Edicion">
             <items>
-              <MenuItem mnemonicParsing="false" text="Exportar Base de datos a txt" />
+              <MenuItem fx:id="menuExportarTXT" mnemonicParsing="false" onAction="#guardarArchivo" text="Exportar Base de datos a txt" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ayuda">
@@ -45,7 +45,7 @@
                         <TextField fx:id="TextFieldNombreBuscador" editable="false" layoutX="36.0" layoutY="189.0" prefHeight="26.0" prefWidth="147.0" promptText="Nombre" />
                         <TextField fx:id="TextFieldApellido1Buscador" editable="false" layoutX="224.0" layoutY="189.0" prefHeight="26.0" prefWidth="210.0" promptText="Apellido 1" />
                         <TextField fx:id="TextFieldApellido2Buscador" editable="false" layoutX="475.0" layoutY="189.0" prefHeight="26.0" prefWidth="230.0" promptText="Apellido 2" />
-                        <TextField fx:id="TextFieldNivelInsulinaActualBuscador" editable="false" layoutX="254.0" layoutY="232.0" prefHeight="35.0" prefWidth="150.0" promptText="Nivel de insulina actual" />
+                        <TextField fx:id="TextFieldNivelInsulinaActualBuscador" editable="false" layoutX="554.0" layoutY="232.0" prefHeight="35.0" prefWidth="150.0" promptText="Nivel de insulina actual" />
                         <TextField fx:id="TextFieldNumeroSeguridadSocialBuscador" layoutX="34.0" layoutY="34.0" prefHeight="33.0" prefWidth="250.0" promptText="Numero Seguridad Social">
                            <font>
                               <Font size="18.0" />
@@ -53,13 +53,13 @@
                         </TextField>
                         <Button fx:id="botonAltaNueva" layoutX="753.0" layoutY="403.0" mnemonicParsing="false" onAction="#InsertarPaciente" prefHeight="51.0" prefWidth="132.0" text="Dar de alta Paciente" />
                         <Separator layoutX="7.0" layoutY="299.0" prefHeight="0.0" prefWidth="906.0" />
-                        <TextField fx:id="TextFieldNumeroSeguridadSocialAlta" layoutX="34.0" layoutY="324.0" prefHeight="38.0" prefWidth="249.0" promptText="Numero Seguridad Social" />
-                        <TextField fx:id="TextFieldNombreAlta" layoutX="35.0" layoutY="383.0" promptText="Nombre" />
-                        <TextField fx:id="TextFieldApellido1Alta" layoutX="224.0" layoutY="383.0" prefHeight="26.0" prefWidth="210.0" promptText="Apellido 1" />
-                        <TextField fx:id="TextFieldApellido2Alta" layoutX="475.0" layoutY="383.0" prefHeight="26.0" prefWidth="230.0" promptText="Apellido 2" />
-                        <TextField fx:id="TextFieldNivelInsulinaInicalAlta" layoutX="264.0" layoutY="429.0" prefHeight="34.0" prefWidth="149.0" promptText="Nivel Insulina Inicial" />
-                        <DatePicker fx:id="DatePickerFechaNacimientoAlta" layoutX="34.0" layoutY="429.0" prefHeight="34.0" prefWidth="195.0" promptText="Fecha de Nacimiento" />
-                        <Label layoutX="35.0" layoutY="91.0" prefHeight="18.0" prefWidth="557.0" text="*El numero de Seguridad social esta compuesto por las iniciales de los apellidos y la fecha de nacimiento.">
+                        <TextField fx:id="TextFieldNumeroSeguridadSocialAlta" layoutX="34.0" layoutY="359.0" prefHeight="38.0" prefWidth="249.0" promptText="Numero Seguridad Social" />
+                        <TextField fx:id="TextFieldNombreAlta" layoutX="35.0" layoutY="418.0" promptText="Nombre" />
+                        <TextField fx:id="TextFieldApellido1Alta" layoutX="224.0" layoutY="418.0" prefHeight="26.0" prefWidth="210.0" promptText="Apellido 1" />
+                        <TextField fx:id="TextFieldApellido2Alta" layoutX="475.0" layoutY="418.0" prefHeight="26.0" prefWidth="230.0" promptText="Apellido 2" />
+                        <TextField fx:id="TextFieldNivelInsulinaInicalAlta" layoutX="525.0" layoutY="464.0" prefHeight="34.0" prefWidth="149.0" promptText="Nivel Insulina Inicial" />
+                        <DatePicker fx:id="DatePickerFechaNacimientoAlta" layoutX="284.0" layoutY="464.0" prefHeight="34.0" prefWidth="195.0" promptText="Fecha de Nacimiento" />
+                        <Label layoutX="35.0" layoutY="91.0" prefHeight="18.0" prefWidth="557.0" text="*El numero de Seguridad social esta compuesto por las iniciales de los apellidos y el año de nacimiento.">
                            <font>
                               <Font size="10.0" />
                            </font>
@@ -70,8 +70,16 @@
                            </font>
                         </Label>
                         <Separator layoutX="8.0" layoutY="505.0" prefHeight="20.0" prefWidth="903.0" />
-                        <TextField fx:id="TextFieldFechaNacimientoBuscador" editable="false" layoutX="34.0" layoutY="233.0" prefHeight="34.0" prefWidth="191.0" promptText="Fecha de nacimiento" />
+                        <TextField fx:id="TextFieldFechaNacimientoBuscador" editable="false" layoutX="299.0" layoutY="232.0" prefHeight="34.0" prefWidth="191.0" promptText="Fecha de nacimiento" />
                         <Button fx:id="botonMostrarPacientes" layoutX="330.0" layoutY="534.0" mnemonicParsing="false" onAction="#ConsultarPacientes" prefHeight="46.0" prefWidth="289.0" text="Mostrar todos los pacientes" />
+                        <Separator layoutX="7.0" layoutY="128.0" prefHeight="0.0" prefWidth="906.0" />
+                        <Label layoutX="36.0" layoutY="311.0" prefHeight="18.0" prefWidth="182.0" text="Alta nuevo paciente">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="TextfieldNumeroTelefonoPaciente" layoutX="35.0" layoutY="236.0" prefHeight="26.0" prefWidth="205.0" promptText="Numero de telefono" />
+                        <TextField fx:id="TextfieldNumeroTelefonoAltaPaciente" layoutX="35.0" layoutY="468.0" prefHeight="26.0" prefWidth="205.0" promptText="Numero de telefono" />
                      </children></AnchorPane>
             </content>
           </Tab>
@@ -79,14 +87,18 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <Button fx:id="botonGuardarAnalitica" layoutX="730.0" layoutY="75.0" mnemonicParsing="false" onAction="#GuardarAnaliticas" prefHeight="58.0" prefWidth="136.0" text="Guardar Analitica" />
-                        <TextField fx:id="TextFieldNumeroSSGuardarAnalitica" layoutX="45.0" layoutY="37.0" prefHeight="38.0" prefWidth="338.0" promptText="Numero de Seguridad Social" />
-                        <TextField fx:id="TextFieldResultadoAnaliticaGuardarAnalitica" layoutX="45.0" layoutY="103.0" prefHeight="33.0" prefWidth="183.0" promptText="Resultado Analitica" />
-                        <DatePicker fx:id="DatePickerSelectorFechaGuardarAnalitica" layoutX="270.0" layoutY="102.0" prefHeight="34.0" prefWidth="226.0" promptText="Fecha de Analitica" />
-                        <TextArea fx:id="TextAreaConfirmaciones" layoutX="45.0" layoutY="176.0" prefHeight="83.0" prefWidth="644.0" promptText="Confirmacion de guardado y alertas del sistema" />
-                        <Button fx:id="botonConsultarAnaliticas" layoutX="732.0" layoutY="407.0" mnemonicParsing="false" prefHeight="63.0" prefWidth="132.0" text="Consultar" />
-                        <TextArea fx:id="TextAreaHistorial" layoutX="45.0" layoutY="348.0" prefHeight="221.0" prefWidth="646.0" promptText="Historial de analiticas realizadas al paciente" />
-                        <Label layoutX="45.0" layoutY="302.0" prefHeight="26.0" prefWidth="180.0" text="Historial de analiticas" />
+                        <Button fx:id="botonGuardarAnalitica" layoutX="729.0" layoutY="32.0" mnemonicParsing="false" onAction="#GuardarAnaliticas" prefHeight="58.0" prefWidth="136.0" text="Guardar Analitica" />
+                        <TextField fx:id="TextFieldNumeroSSGuardarAnalitica" layoutX="45.0" layoutY="23.0" prefHeight="38.0" prefWidth="338.0" promptText="Numero de Seguridad Social" />
+                        <TextField fx:id="TextFieldResultadoAnaliticaGuardarAnalitica" layoutX="300.0" layoutY="87.0" prefHeight="35.0" prefWidth="220.0" promptText="Resultado Analitica" />
+                        <DatePicker fx:id="DatePickerSelectorFechaGuardarAnalitica" layoutX="43.0" layoutY="87.0" prefHeight="34.0" prefWidth="226.0" promptText="Fecha de Analitica" />
+                        <TextArea fx:id="TextAreaConfirmaciones" editable="false" layoutX="43.0" layoutY="144.0" prefHeight="82.0" prefWidth="644.0" promptText="Confirmacion de guardado y alertas del sistema" />
+                        <Button fx:id="botonConsultarAnaliticas" layoutX="520.0" layoutY="291.0" mnemonicParsing="false" onAction="#mostrarAnaliticasPaciente" prefHeight="63.0" prefWidth="132.0" text="Consultar  Analiticas" />
+                        <TextArea fx:id="TextAreaHistorial" editable="false" layoutX="45.0" layoutY="383.0" prefHeight="187.0" prefWidth="846.0" promptText="Historial de analiticas realizadas al paciente" />
+                        <Label layoutX="45.0" layoutY="275.0" prefHeight="26.0" prefWidth="180.0" text="Historial de analiticas" />
+                        <Separator layoutX="4.0" layoutY="242.0" prefHeight="14.0" prefWidth="911.0" />
+                        <TextField fx:id="TextFieldNumeroSSConsultarAnaliticas" layoutX="45.0" layoutY="323.0" prefHeight="38.0" prefWidth="338.0" promptText="Numero de Seguridad Social" />
+                        <Button fx:id="botonLimpiarGuardarAnaliticas" layoutX="730.0" layoutY="122.0" mnemonicParsing="false" onAction="#limpiarResultadosAnaliticas" prefHeight="59.0" prefWidth="134.0" text="Limpiar resultados" />
+                        <Button fx:id="botonLimpiarGuardarAnaliticas1" layoutX="699.0" layoutY="291.0" mnemonicParsing="false" onAction="#limpiarResultadosHistorialAnaliticas" prefHeight="62.0" prefWidth="140.0" text="Limpiar resultados" />
                      </children></AnchorPane>
             </content>
           </Tab>

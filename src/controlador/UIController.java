@@ -99,6 +99,9 @@ public class UIController implements Initializable {
     private TextField TextfieldNumeroTelefonoAltaPaciente;
 
     @FXML
+    private Button botonLimpiarDatosPacientes;
+
+    @FXML
     private Button botonGuardarAnalitica;
 
     @FXML
@@ -144,9 +147,6 @@ public class UIController implements Initializable {
     private DatePicker DatePickerSelectorFechaProgramarVisita;
 
     @FXML
-    private TextField TextfieldHoraProgramarVisita;
-
-    @FXML
     private Button botonBuscarVisitasProgramadas;
 
     @FXML
@@ -159,10 +159,10 @@ public class UIController implements Initializable {
     private TextField TextfieldApellido2ProgramarVisita;
 
     @FXML
-    private Button botonLimpiarCamposProgramarVisita;
+    private Button botonLimpiarVisitasProgramdas;
 
     @FXML
-    private Button botonLimpiarVisitasProgramdas;
+    private TextField TextfieldHoraProgramarVisita;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -220,6 +220,19 @@ public class UIController implements Initializable {
         TextfieldNumeroTelefonoPaciente.setText(paciente.getNumeroTelefono());
         TextFieldFechaNacimientoBuscador.setText(paciente.getFechaNacimiento());
         TextFieldNivelInsulinaActualBuscador.setText(String.valueOf(paciente.getNivelInsulina()));
+    }
+
+    @FXML
+    void limpiarCasillasBuscarPacientes(ActionEvent event) {//borra los datos que hay en las casillas
+
+        TextFieldNumeroSeguridadSocialBuscador.clear();
+        TextFieldNombreBuscador.clear();
+        TextFieldApellido1Buscador.clear();
+        TextFieldApellido2Buscador.clear();
+        TextfieldNumeroTelefonoPaciente.clear();
+        TextFieldFechaNacimientoBuscador.clear();
+        TextFieldNivelInsulinaActualBuscador.clear();
+
     }
 
     @FXML
@@ -425,7 +438,7 @@ public class UIController implements Initializable {
         //borra los campos de texto para indicar visualmente que ha habido una accion
         TextfieldNumeroSeguridadSocialProgramarVisita.clear();
         TextfieldNombreProgramarVisita.clear();
-        TextfieldNombreProgramarVisita.clear();
+        TextfieldApellido1ProgramarVisita.clear();
         TextfieldApellido2ProgramarVisita.clear();
         DatePickerSelectorFechaProgramarVisita.getEditor().clear();
         TextfieldHoraProgramarVisita.clear();

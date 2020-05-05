@@ -25,9 +25,10 @@ public class ConexionBD {
     private static final String USER = "root";
     private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://localhost:3306/";
-    private static final String BD = "hospital";
+    private static final String BD = "hospital_IFP";
     private static final String TABLE1 = "pacientes";
     private static final String TABLE2 = "analiticas";
+    private static final String TABLE3 = "visitas";
 
     //constructor de la conexion
     public ConexionBD() {
@@ -308,6 +309,93 @@ public class ConexionBD {
         } catch (SQLException ex) {
             Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
 
+    //procedimiento para guardar en la tabla visitas cuando el paciente necesita programarse una analitca
+    public void programarVisitaPaciente(String numeroSeguridadSocial, String nombre, String apellido1, String apellido2,
+            String fechaVisita, String hora) {
+
+        try {
+            Class.forName(DRIVER);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            conection = (Connection) DriverManager.getConnection(URL + BD, USER, PASSWORD);
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        PreparedStatement ps = null;
+
+        try {
+            ps = (PreparedStatement) conection.prepareStatement("CREATE TABLE IF NOT EXISTS " + TABLE3
+                    + "(numeroVisita int(11) AUTO_INCREMENT PRIMARY KEY, numeroSeguridadSocial VARCHAR(20), nombre VARCHAR (20), "
+                    + "apellido1 VARCHAR (20), apellido2 VARCHAR (20), fechaVisita VARCHAR (20), hora VARCHAR(10) )");
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Tabla " + TABLE3 + " creada o actualizada.\n");
+
+        String sql = "INSERT INTO " + TABLE3 + "(numeroSeguridadSocial, nombre, apellido1, apellido2, fechaVisita, "
+                + "hora ) " + "values ('" + numeroSeguridadSocial + "', '" + nombre + "', '" + apellido1 + "', '" + apellido2
+                + "', '" + fechaVisita + "', '" + hora + "')";
+        System.out.println(sql);
+
+        try (Statement st = conection.createStatement()) {
+            st.executeUpdate(sql, Statement.RETURN_GENERATED_KEYS);
+            System.out.println("Datos añadidos a la tabla.");
+            try (ResultSet rs = st.getGeneratedKeys()) {
+                rs.next();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ConexionBD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    //metodo para mostrar las visitas por paciente
+    public ArrayList<Visitas> mostrarTodasVisitasPaciente(String numeroSS) throws SQLException {
+
+        Visitas visita = new Visitas();
+        ArrayList<Visitas> listadoVisitas = new ArrayList<>();
+
+        Statement st = null;
+        String sql = "SELECT * FROM " + TABLE3 + " WHERE numeroSeguridadSocial = " + "'" + numeroSS + "';";
+        conection = (Connection) DriverManager.getConnection(URL + BD, USER, PASSWORD);
+        try {
+            st = conection.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            int resultados = 0;
+
+            while (rs.next()) {
+                //obtengo los campos
+                int numeroVisita = rs.getInt("numeroVisita");
+                String numeroSeguridadSocial = rs.getString("numeroSeguridadSocial");
+                String nombre = rs.getString("nombre");
+                String apellido1 = rs.getString("apellido1");
+                String apellido2 = rs.getString("apellido2");
+                String fechaVisita = rs.getString("fechaVisita");
+                String hora = rs.getString("hora");
+                //los paso a arraylist mediante objeto
+                visita = new Visitas(numeroVisita, numeroSeguridadSocial, nombre, apellido1, apellido2, fechaVisita, hora);
+                listadoVisitas.add(visita);
+                resultados++;
+            }
+            if (resultados == 0) {
+                System.out.println("No se ha encontrado ningun resultado.");
+            }
+            rs.close();
+        } finally {
+            if (st != null) {
+                st.close();
+            }
+        }
+        System.out.println(listadoVisitas);
+        return listadoVisitas;
     }
 }

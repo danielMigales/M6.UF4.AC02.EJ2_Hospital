@@ -66,7 +66,7 @@
                         </Label>
                         <Label layoutX="35.0" layoutY="143.0" prefHeight="18.0" prefWidth="173.0" text="Datos Personales">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <Separator layoutX="8.0" layoutY="505.0" prefHeight="20.0" prefWidth="903.0" />
@@ -75,7 +75,7 @@
                         <Separator layoutX="7.0" layoutY="128.0" prefHeight="0.0" prefWidth="906.0" />
                         <Label layoutX="36.0" layoutY="311.0" prefHeight="18.0" prefWidth="182.0" text="Alta nuevo paciente">
                            <font>
-                              <Font size="14.0" />
+                              <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <TextField fx:id="TextfieldNumeroTelefonoPaciente" layoutX="35.0" layoutY="236.0" prefHeight="26.0" prefWidth="205.0" promptText="Numero de telefono" />
@@ -94,7 +94,10 @@
                         <TextArea fx:id="TextAreaConfirmaciones" editable="false" layoutX="43.0" layoutY="144.0" prefHeight="82.0" prefWidth="644.0" promptText="Confirmacion de guardado y alertas del sistema" />
                         <Button fx:id="botonConsultarAnaliticas" layoutX="520.0" layoutY="291.0" mnemonicParsing="false" onAction="#mostrarAnaliticasPaciente" prefHeight="63.0" prefWidth="132.0" text="Consultar  Analiticas" />
                         <TextArea fx:id="TextAreaHistorial" editable="false" layoutX="45.0" layoutY="383.0" prefHeight="187.0" prefWidth="846.0" promptText="Historial de analiticas realizadas al paciente" />
-                        <Label layoutX="45.0" layoutY="275.0" prefHeight="26.0" prefWidth="180.0" text="Historial de analiticas" />
+                        <Label layoutX="45.0" layoutY="275.0" prefHeight="26.0" prefWidth="180.0" text="Historial de analiticas">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font></Label>
                         <Separator layoutX="4.0" layoutY="242.0" prefHeight="14.0" prefWidth="911.0" />
                         <TextField fx:id="TextFieldNumeroSSConsultarAnaliticas" layoutX="45.0" layoutY="323.0" prefHeight="38.0" prefWidth="338.0" promptText="Numero de Seguridad Social" />
                         <Button fx:id="botonLimpiarGuardarAnaliticas" layoutX="730.0" layoutY="122.0" mnemonicParsing="false" onAction="#limpiarResultadosAnaliticas" prefHeight="59.0" prefWidth="134.0" text="Limpiar resultados" />
@@ -102,6 +105,35 @@
                      </children></AnchorPane>
             </content>
           </Tab>
+            <Tab text="Visitas">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="botonProgramarVisita" layoutX="631.0" layoutY="464.0" mnemonicParsing="false" onAction="#programarVisitaNueva" prefHeight="71.0" prefWidth="174.0" text=" Programar visita" />
+                        <Label layoutX="31.0" layoutY="38.0" prefHeight="20.0" prefWidth="274.0" text="Ver visitas programadas por paciente">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="31.0" layoutY="302.0" prefHeight="18.0" prefWidth="218.0" text="Programar visita">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextArea fx:id="TextareaListadoVisitasProgramadas" editable="false" layoutX="29.0" layoutY="134.0" prefHeight="146.0" prefWidth="846.0" promptText="Listado de visitas programadas" wrapText="true" />
+                        <TextField fx:id="TextfieldNumeroSeguridadSocialVisitasProgramadas" layoutX="31.0" layoutY="75.0" prefHeight="26.0" prefWidth="332.0" promptText="Numero de Seguridad Social" />
+                        <TextField fx:id="TextfieldNumeroSeguridadSocialProgramarVisita" layoutX="35.0" layoutY="345.0" prefHeight="26.0" prefWidth="210.0" promptText="Numero Seguridad Social" />
+                        <DatePicker fx:id="DatePickerSelectorFechaProgramarVisita" layoutX="35.0" layoutY="398.0" promptText="Fecha" />
+                        <Button fx:id="botonBuscarVisitasProgramadas" layoutX="475.0" layoutY="40.0" mnemonicParsing="false" onAction="#mostrarVisitasProgramadas" prefHeight="70.0" prefWidth="180.0" text="Mostrar visitas" />
+                        <TextField fx:id="TextfieldNombreProgramarVisita" layoutX="277.0" layoutY="346.0" prefHeight="26.0" prefWidth="175.0" promptText="Nombre" />
+                        <TextField fx:id="TextfieldApellido1ProgramarVisita" layoutX="466.0" layoutY="346.0" prefHeight="26.0" prefWidth="198.0" promptText="Apellido 1" />
+                        <TextField fx:id="TextfieldApellido2ProgramarVisita" layoutX="694.0" layoutY="345.0" prefHeight="26.0" prefWidth="182.0" promptText="Apellido 2" />
+                        <Button fx:id="botonLimpiarVisitasProgramdas" layoutX="677.0" layoutY="41.0" mnemonicParsing="false" onAction="#limpiarDatosVisitasProgramadas" prefHeight="68.0" prefWidth="170.0" text="Limpiar Datos" />
+                        <TextField fx:id="TextfieldHoraProgramarVisita" layoutX="277.0" layoutY="398.0" promptText="Hora" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
         </tabs>
       </TabPane>
    </children>

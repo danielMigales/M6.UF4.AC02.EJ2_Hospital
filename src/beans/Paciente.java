@@ -22,10 +22,12 @@ public class Paciente implements Serializable { //BEAN FUENTE
 
     private PropertyChangeSupport propertySupport;//BEAN FUENTE
 
+    //constructor vacio con el propertysupport
     public Paciente() {
         propertySupport = new PropertyChangeSupport(this);
     }
 
+    //constructor con todos los parametros
     public Paciente(String numeroSeguridadSocial, String nombre, String apellido1, String apellido2,
             String numeroTelefono, String fechaNacimiento, double nivelInsulina) {
 
@@ -39,6 +41,7 @@ public class Paciente implements Serializable { //BEAN FUENTE
         this.nivelInsulina = nivelInsulina;
     }
 
+    //getters y setters
     public String getNumeroSeguridadSocial() {
         return numeroSeguridadSocial;
     }
@@ -91,35 +94,34 @@ public class Paciente implements Serializable { //BEAN FUENTE
         return nivelInsulina;
     }
 
+    //en el setter del atributo susceptible se añade el aviso al bean receptor. He configurado una alerta con dialogo y otra por terminal
     public void setNivelInsulina(double resultadoAnalitica) {
 
         double valorAnterior = this.nivelInsulina;
         this.nivelInsulina = resultadoAnalitica;
 
-        //AQUI VA EL CODIGO QUE HA DE HACER ALGO
         double numeroA = valorAnterior;
         double numeroB = numeroA + 10;
         double numeroC = numeroA - 10;
 
+        //si la analitica es mayor que el nivel anterior se imprime mensaje y se lanza el evento
         if (resultadoAnalitica >= numeroB) {
-            //si la analitica es mayor que el nivel anterior se imprime mensaje y se lanza el evento
             System.out.println("SOY EL BEAN FUENTE: Sus niveles han sobrepasado los limites. Han subido mas de 10 puntos.");
             //LANZAMOS EL EVENTO AL RECEPTOR ENVIANDOLE LOS DATOS
             propertySupport.firePropertyChange("Nivel Insulina Actual", valorAnterior, this.nivelInsulina);
-
-            //Lanzara una alerta en forma de dialogo
+            //Lanzara una alerta visual en forma de dialogo informando que el valor ha cambiado mas de lo normal
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ALERTA DE ANALITICA");
             alert.setHeaderText("SOY EL BEAN FUENTE E INFORMO:");
-            alert.setContentText("Su nivel de insulina ha subido mas de 10 puntos.\n\n");
+            alert.setContentText("Su nivel de insulina ha subido mas de 10 puntos.\n\n" + "Se ha programado una visita para mañana.");
             alert.showAndWait();
         }
+
+        //si la analitica es menor que el nivel anterior se imprime mensaje y se lanza el evento
         if (resultadoAnalitica <= numeroC) {
-            //si la analitica es menor que el nivel anterior se imprime mensaje y se lanza el evento
             System.out.println("SOY EL BEAN FUENTE: Sus niveles han sobrepasado los limites. Han bajado mas de 10 puntos.");
             //LANZAMOS EL EVENTO AL RECEPTOR ENVIANDOLE LOS DATOS
             propertySupport.firePropertyChange("Nivel Insulina Actual", valorAnterior, this.nivelInsulina);
-
             //Lanzara una alerta en forma de dialogo
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("ALERTA DE ANALITICA");
@@ -130,19 +132,20 @@ public class Paciente implements Serializable { //BEAN FUENTE
 
     }
 
-    @Override
-    public String toString() {
-        return "Paciente: " + "\nNumero Seguridad Social:" + numeroSeguridadSocial + "\nNombre: " + nombre
-                + "\nApellido1: " + apellido1 + "\nApellido2: " + apellido2 + "\nNumero Telefono: " + numeroTelefono
-                + "\nFecha Nacimiento: " + fechaNacimiento + "\nNivel Insulina=" + nivelInsulina + "\n";
-    }
-
+    //listeners
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         propertySupport.addPropertyChangeListener(listener);
     }
 
     public void removePropertyChangeListener(PropertyChangeListener listener) {
         propertySupport.removePropertyChangeListener(listener);
+    }
+
+    @Override
+    public String toString() {
+        return "Paciente: " + "\nNumero Seguridad Social:" + numeroSeguridadSocial + "\nNombre: " + nombre
+                + "\nApellido1: " + apellido1 + "\nApellido2: " + apellido2 + "\nNumero Telefono: " + numeroTelefono
+                + "\nFecha Nacimiento: " + fechaNacimiento + "\nNivel Insulina=" + nivelInsulina + "\n";
     }
 
 }

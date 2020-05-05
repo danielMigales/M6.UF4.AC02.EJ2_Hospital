@@ -28,6 +28,7 @@ import javafx.scene.layout.Priority;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import modelo.ConexionBD;
+import modelo.Visitas;
 
 /**
  * FXML Controller class
@@ -57,9 +58,6 @@ public class UIController implements Initializable {
 
     @FXML
     private TextField TextFieldApellido2Buscador;
-
-    @FXML
-    private TextField TextfieldNumeroTelefonoPaciente;
 
     @FXML
     private TextField TextFieldNivelInsulinaActualBuscador;
@@ -95,6 +93,12 @@ public class UIController implements Initializable {
     private Button botonMostrarPacientes;
 
     @FXML
+    private TextField TextfieldNumeroTelefonoPaciente;
+
+    @FXML
+    private TextField TextfieldNumeroTelefonoAltaPaciente;
+
+    @FXML
     private Button botonGuardarAnalitica;
 
     @FXML
@@ -122,7 +126,43 @@ public class UIController implements Initializable {
     private Button botonLimpiarGuardarAnaliticas;
 
     @FXML
-    private TextField TextfieldNumeroTelefonoAltaPaciente;
+    private Button botonLimpiarGuardarAnaliticas1;
+
+    @FXML
+    private Button botonProgramarVisita;
+
+    @FXML
+    private TextArea TextareaListadoVisitasProgramadas;
+
+    @FXML
+    private TextField TextfieldNumeroSeguridadSocialVisitasProgramadas;
+
+    @FXML
+    private TextField TextfieldNumeroSeguridadSocialProgramarVisita;
+
+    @FXML
+    private DatePicker DatePickerSelectorFechaProgramarVisita;
+
+    @FXML
+    private TextField TextfieldHoraProgramarVisita;
+
+    @FXML
+    private Button botonBuscarVisitasProgramadas;
+
+    @FXML
+    private TextField TextfieldNombreProgramarVisita;
+
+    @FXML
+    private TextField TextfieldApellido1ProgramarVisita;
+
+    @FXML
+    private TextField TextfieldApellido2ProgramarVisita;
+
+    @FXML
+    private Button botonLimpiarCamposProgramarVisita;
+
+    @FXML
+    private Button botonLimpiarVisitasProgramdas;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -329,6 +369,67 @@ public class UIController implements Initializable {
 
         TextFieldNumeroSSConsultarAnaliticas.clear();
         TextAreaHistorial.clear();
+    }
+
+    @FXML
+    void mostrarVisitasProgramadas(ActionEvent event) { //muestra los registros de la tabla visitas por paciente
+
+        try {
+            String numeroSS = TextfieldNumeroSeguridadSocialVisitasProgramadas.getText();
+            ConexionBD conexion = new ConexionBD();
+            ArrayList<Visitas> listadoVisitas = null;
+            listadoVisitas = conexion.mostrarTodasVisitasPaciente(numeroSS);
+            TextareaListadoVisitasProgramadas.setWrapText(true);
+
+            for (Visitas listadoVisita : listadoVisitas) {
+
+                int numeroVisita = listadoVisita.getNumeroVisita();
+                String numeroSeguridadSocial = listadoVisita.getNumeroSeguridadSocial();
+                String nombre = listadoVisita.getNombre();
+                String apellido1 = listadoVisita.getApellido1();
+                String apellido2 = listadoVisita.getApellido2();
+                String fechaVisita = listadoVisita.getFechaVisita();
+                String hora = listadoVisita.getHora();
+                TextareaListadoVisitasProgramadas.appendText("Numero de Visita: " + numeroVisita
+                        + "\nNumero de Seguridad Social: " + numeroSeguridadSocial + "\nNombre: " + nombre
+                        + "\n1.º apellido: " + apellido1 + "\n2.º apellido: " + apellido2
+                        + "\nFecha de visita: " + fechaVisita + "\nHora: " + hora + "\n\n");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UIController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void limpiarDatosVisitasProgramadas(ActionEvent event) { //borra los datos de las casillas
+
+        TextfieldNumeroSeguridadSocialVisitasProgramadas.clear();
+        TextareaListadoVisitasProgramadas.clear();
+    }
+
+    @FXML
+    void programarVisitaNueva(ActionEvent event) { //inserta una nueva visita en la tabla visitas
+
+        //obtencion de los datos de los campos
+        String numeroSS = TextfieldNumeroSeguridadSocialProgramarVisita.getText();
+        String nombre = TextfieldNombreProgramarVisita.getText();
+        String apellido1 = TextfieldApellido1ProgramarVisita.getText();
+        String apellido2 = TextfieldApellido2ProgramarVisita.getText();
+        String fechaVisita = DatePickerSelectorFechaProgramarVisita.getValue().toString();
+        String hora = TextfieldHoraProgramarVisita.getText();
+
+        //insercion en la tabla de los datos
+        ConexionBD conexion = new ConexionBD();
+        conexion.programarVisitaPaciente(numeroSS, nombre, apellido1, apellido2, fechaVisita, hora);
+
+        //borra los campos de texto para indicar visualmente que ha habido una accion
+        TextfieldNumeroSeguridadSocialProgramarVisita.clear();
+        TextfieldNombreProgramarVisita.clear();
+        TextfieldNombreProgramarVisita.clear();
+        TextfieldApellido2ProgramarVisita.clear();
+        DatePickerSelectorFechaProgramarVisita.getEditor().clear();
+        TextfieldHoraProgramarVisita.clear();
 
     }
+
 }
